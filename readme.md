@@ -2,7 +2,6 @@
 
 ## Setup and Running the Project
 
-**(You would typically add instructions here on how to set up and run both the React frontend and the Spring Boot backend.)**
 
 ### Backend (Java Spring Boot)
 
