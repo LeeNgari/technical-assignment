@@ -1,0 +1,15 @@
+GET http://localhost:8081/api/employee
+Accept: application/json
+
+###
+POST localhost:8081/api/employee
+Content-Type: application/json
+
+{
+  "name": "Janesa öDe",
+  "email":"Jjsasasosa@gmail.com",
+  "department": "health",
+  "phoneNumber": "011211111111"
+}
+
+
