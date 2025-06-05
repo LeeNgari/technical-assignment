@@ -1,10 +1,7 @@
 # Employee Management System API
 
 
-<video width="640" height="360" controls>
-  <source src="https://res.cloudinary.com/du74ofrgc/video/upload/v1749115576/Screencast_from_2025-06-05_12-21-41_ujups5.webm" type="video/webm">
-  Your browser does not support the video tag. <a href="https://res.cloudinary.com/du74ofrgc/video/upload/v1749115576/Screencast_from_2025-06-05_12-21-41_ujups5.webm">Download the video</a> instead.
-</video>
+[Watch the demo video](https://res.cloudinary.com/du74ofrgc/video/upload/v1749115576/Screencast_from_2025-06-05_12-21-41_ujups5.webm)
 
 ## Setup and Running the Project
 
