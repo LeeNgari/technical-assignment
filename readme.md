@@ -1,5 +1,8 @@
 # Employee Management System API
 
+
+[Watch the demo video](https://res.cloudinary.com/du74ofrgc/video/upload/v1749115576/Screencast_from_2025-06-05_12-21-41_ujups5.webm)
+
 ## Setup and Running the Project
 
 

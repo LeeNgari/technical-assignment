@@ -1,18 +1,48 @@
 const API_BASE = "http://localhost:8081/api/employee";
 
+const handleError = async (response) => {
+  if (!response.ok) {
+    let errorMessage = 'An unexpected error occurred';
+    
+    try {
+      const errorData = await response.json();
+      if (errorData.message) {
+        errorMessage = errorData.message;
+      }
+    } catch (e) {
+      errorMessage = response.statusText;
+    }
+    
+    // Enhance specific status codes with more context
+    switch (response.status) {
+      case 400:
+        errorMessage = ` ${errorMessage}`;
+        break;
+      case 404:
+        errorMessage = errorMessage.includes('not found') 
+          ? errorMessage 
+          : 'Resource not found';
+        break;
+      case 409:
+        errorMessage = `Conflict: ${errorMessage}`;
+        break;
+      default:
+        break;
+    }
+    
+    throw new Error(errorMessage);
+  }
+};
+
 export const fetchEmployees = async () => {
   const response = await fetch(API_BASE);
-  if (!response.ok) {
-    throw new Error("Failed to fetch employees");
-  }
+  await handleError(response);
   return await response.json();
 };
 
 export const fetchEmployeeById = async (id) => {
   const response = await fetch(`${API_BASE}/${id}`);
-  if (!response.ok) {
-    throw new Error("Employee not found");
-  }
+  await handleError(response);
   return await response.json();
 };
 
@@ -24,10 +54,7 @@ export const createEmployee = async (employeeData) => {
     },
     body: JSON.stringify(employeeData),
   });
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.details?.join(", ") || "Failed to create employee");
-  }
+  await handleError(response);
   return await response.json();
 };
 
@@ -39,10 +66,7 @@ export const updateEmployee = async (id, employeeData) => {
     },
     body: JSON.stringify(employeeData),
   });
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.details?.join(", ") || "Failed to update employee");
-  }
+  await handleError(response);
   return await response.json();
 };
 
@@ -50,8 +74,10 @@ export const deleteEmployee = async (id) => {
   const response = await fetch(`${API_BASE}/${id}`, {
     method: "DELETE",
   });
-  if (!response.ok) {
-    throw new Error("Failed to delete employee");
+  await handleError(response);
+  // Some DELETE endpoints might not return content
+  if (response.status === 204) {
+    return { message: 'Employee deleted successfully' };
   }
   return await response.json();
 };

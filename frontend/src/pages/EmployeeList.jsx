@@ -18,7 +18,7 @@ const EmployeeList = () => {
         setEmployees(data);
         setFilteredEmployees(data);
         
-        // Extract unique departments
+        
         const uniqueDepts = [...new Set(data.map(emp => emp.department))];
         setDepartments(uniqueDepts);
       } catch (err) {
