@@ -2,14 +2,8 @@ GET http://localhost:8081/api/employee
 Accept: application/json
 
 ###
-POST localhost:8081/api/employee
+DELETE localhost:8081/api/employee/90c815a0-5d5e-4507-bb06-71510d4c1c
 Content-Type: application/json
 
-{
-  "name": "Janesa öDe",
-  "email":"Jjsasasosa@gmail.com",
-  "department": "health",
-  "phoneNumber": "011211111111"
-}
 
 

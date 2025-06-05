@@ -1,37 +1,51 @@
 package com.example.back.exception;
 
-import com.example.back.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-@RestControllerAdvice
+import java.util.Map;
+
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        List<String> errors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                .collect(Collectors.toList());
+    public ResponseEntity<Map<String, String>> handleValidationException(
+            MethodArgumentNotValidException ex) {
 
-        ErrorResponse response = new ErrorResponse("Validation failed", errors);
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getBindingResult().getFieldErrors().forEach(
+                error -> errors.put(error.getField(), error.getDefaultMessage()));
+
+        return ResponseEntity.badRequest().body(errors);
+    }
+    @ExceptionHandler(EmailAlreadyExists.class)
+    public ResponseEntity<Map<String, String>> handleEmailAlreadyExistsException(
+            EmailAlreadyExists ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Email address already exists");
+        return ResponseEntity.badRequest().body(errors);
+    }
+    @ExceptionHandler(PhoneNumberAlreadyExists.class)
+    public ResponseEntity<Map<String, String>> handlePhoneNumberAlreadyExistsException(
+            PhoneNumberAlreadyExists ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Phone number already exists");
+        return ResponseEntity.badRequest().body(errors);
     }
     @ExceptionHandler(EmployeeNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleEmployeeNotFoundException(EmployeeNotFoundException ex) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(Map.of("error", ex.getMessage()));
+    public ResponseEntity<Map<String, String>> handleEmployeeNotFoundException(
+            EmployeeNotFoundException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Employee not found");
+        return ResponseEntity.badRequest().body(errors);
     }
 
 

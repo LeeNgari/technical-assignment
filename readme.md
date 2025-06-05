@@ -99,7 +99,17 @@ Creates a new employee.
       "department": "engineering"
     }
     ```
-
+* **In case of any duplicate fields email or phone number (400 ):**
+```json
+{
+"message": "Phone number already exists"
+}
+  ```
+```json
+ {
+  "message": "Email address already exists"
+  }
+   ```
 ---
 
 ### 3. Update Employee
@@ -132,6 +142,21 @@ Updates an existing employee's details by their ID.
       "department": "health"
     }
     ```
+  
+If employee not found
+ ```json
+{
+"message": "Patient not found"
+}
+  ```
+
+In case email or phone number already exists
+```json
+
+{
+"message": "Phone number already exists"
+}
+  ```
 
 ---
 
@@ -151,7 +176,12 @@ Deletes an employee by their ID.
       "message": "Employee deleted successfully"
     }
     ```
-
+In case employee not found
+  ```json
+{
+"message": "Employee not found"
+}
+  ```
 ---
 
 ### 5. Get Employee by ID

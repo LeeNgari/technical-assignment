@@ -5,6 +5,7 @@ import com.example.back.dto.EmployeeResponseDTO;
 import com.example.back.exception.EmailAlreadyExists;
 import com.example.back.exception.EmailException;
 import com.example.back.exception.EmployeeNotFoundException;
+import com.example.back.exception.PhoneNumberAlreadyExists;
 import com.example.back.mapper.EmployeeMapper;
 import com.example.back.model.Employee;
 import com.example.back.repository.EmployeeRepository;
@@ -36,8 +37,11 @@ public class EmployeeService {
     public EmployeeResponseDTO createEmployee(EmployeeRequestDTO employeeRequestDTO) {
 
         if(employeeRepository.existsByEmail(employeeRequestDTO.getEmail())){
-            throw new EmailException("Employee with the email already exists" + employeeRequestDTO.getEmail());
+            throw new EmailAlreadyExists("Employee with the email already exists" + employeeRequestDTO.getEmail());
 
+        }
+        if(employeeRepository.existsByPhoneNumber(employeeRequestDTO.getPhoneNumber())){
+            throw new PhoneNumberAlreadyExists("Employee with the phone number already exists");
         }
         Employee employee = EmployeeMapper.toEntity(employeeRequestDTO);
         employeeRepository.save(employee);
@@ -53,6 +57,9 @@ public class EmployeeService {
         if(employeeRepository.existsByEmailAndIdNot(employeeRequestDTO.getEmail(), id)){
             throw new EmailAlreadyExists("Employee with the email already exists" + employeeRequestDTO.getEmail());
         }
+        if(employeeRepository.existsByPhoneNumberAndIdNot(employeeRequestDTO.getPhoneNumber(), id)){
+            throw new PhoneNumberAlreadyExists("Employee with the phone number already exists");
+        }
         employee.setEmail(employeeRequestDTO.getEmail());
         employee.setName(employeeRequestDTO.getName());
         employee.setDepartment(employeeRequestDTO.getDepartment());
@@ -62,6 +69,11 @@ public class EmployeeService {
         return EmployeeMapper.toDTO(updatedEmployee);
     }
     public void deleteEmployee(UUID id) {
+
+        Employee employee = employeeRepository.findById(id).orElseThrow(
+                ()-> new EmployeeNotFoundException("Employee with id " + id + " not found")
+        );
+
         employeeRepository.deleteById(id);
     }
 }
