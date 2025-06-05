@@ -32,8 +32,8 @@
 1.  Navigate to the frontend project directory.
 2.  Ensure you have Node.js and npm installed.
 3.  Run `npm install`.
-4.  Run `npm start` .
-5.  The frontend will typically start on `http://localhost:5174` and will proxy API requests to the backend.
+4.  Run `npm run dev` .
+5.  The frontend will start on `http://localhost:5173` 
 
 ## Technologies Used
 
@@ -170,8 +170,6 @@ Deletes an employee by their ID.
 * **Method:** `DELETE`
 * **Endpoint:** `/{employeeId}`
     * Example: `/f5879b6e-0217-4468-95d3-9ee2bbbc221a`
-* **Headers:**
-    * `Content-Type: application/json` (Though often not strictly needed for DELETE with no body, it's good practice if your framework expects it or if you might send a body in the future).
 
 * **Success Response (200 OK or 204 No Content):**
     ```json
@@ -216,24 +214,3 @@ Retrieves a specific employee by their ID.
     ```
 
 ---
-
-## Error Handling
-
-### Validation Errors (400 Bad Request)
-
-If the request data fails validation, the API will respond with a `400 Bad Request` status and a JSON object detailing the errors.
-
-* **Example Validation Error Response:**
-    ```json
-    {
-      "message": "Validation failed",
-      "details": [
-        "department: Department is required",
-        "phoneNumber: Phone number is required",
-        "email: Email is required"
-      ]
-    }
-    ```
-
----
-
