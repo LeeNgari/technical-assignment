@@ -212,7 +212,7 @@ Retrieves a specific employee by their ID.
     If the employee with the specified ID is not found.
     ```json
     {
-      "error": "Employee with not found"
+      "error": "Employee not found"
     }
     ```
 
