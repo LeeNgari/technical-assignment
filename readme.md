@@ -140,16 +140,16 @@ Updates an existing employee's details by their ID.
     {
       "id": "f5879b6e-0217-4468-95d3-9ee2bbbc221a",
       "name": "Jane öDe",
-      "phoneNumber": "0111111111",
-      "email": "Jjsasaso@gmail.com",
-      "department": "health"
+      "email":"Jjsasaso@gmail.com",
+      "department": "health",
+      "phoneNumber": "0111111111"
     }
     ```
   
 If employee not found
  ```json
 {
-"message": "Patient not found"
+"message": "Employee not found"
 }
   ```
 
@@ -158,6 +158,9 @@ In case email or phone number already exists
 
 {
 "message": "Phone number already exists"
+}
+{
+"message": "Email already exists"
 }
   ```
 
