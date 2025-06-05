@@ -13,7 +13,7 @@ const handleError = async (response) => {
       errorMessage = response.statusText;
     }
     
-    // Enhance specific status codes with more context
+    
     switch (response.status) {
       case 400:
         errorMessage = ` ${errorMessage}`;
@@ -75,7 +75,7 @@ export const deleteEmployee = async (id) => {
     method: "DELETE",
   });
   await handleError(response);
-  // Some DELETE endpoints might not return content
+  
   if (response.status === 204) {
     return { message: 'Employee deleted successfully' };
   }
