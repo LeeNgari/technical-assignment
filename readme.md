@@ -11,7 +11,8 @@
 1.  Clone the repository.
 2.  Navigate to the backend project directory.
 3.  Ensure you have Java and Maven installed.
-4.  Run `mvn spring-boot:run`.
+4.  Build the project with `mvn clean intall`
+5.  Run it with `mvn spring-boot:run`.
 5.  **Database Configuration:**
     * Ensure you have PostgreSQL installed and running.
     * Create a database for this application (e.g., `employee_db`).
